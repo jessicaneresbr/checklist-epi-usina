@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Checklist EPI - Usina</title>
+<style>
+body { font-family: Arial; max-width: 500px; margin: 30px auto; padding: 20px; }
+.item { padding: 12px; border: 1px solid #ddd; margin: 8px 0; border-radius: 5px; }
+button { width: 100%; padding: 12px; background: #ef6c00; color: white; border: none; cursor: pointer; font-size: 16px; }
+.ok { background: #e8f5e9; }
+</style>
+</head>
+<body>
+<h2>Checklist EPI - Entrada de Turno</h2>
+<input type="text" id="nome" placeholder="Nome do funcionário" style="width:100%; padding:10px; margin-bottom:10px;">
+
+<div id="lista"></div>
+<button onclick="finalizar()">Finalizar Checklist</button>
+<p id="msg"></p>
+
+<script>
+const epis = ["Capacete", "Óculos de proteção", "Protetor auricular", "Luvas", "Botina", "Máscara"];
+const lista = document.getElementById('lista');
+
+epis.forEach(epi => {
+  lista.innerHTML += `<div class="item"><input type="checkbox" value="${epi}"> ${epi}</div>`;
+});
+
+function finalizar() {
+  const nome = document.getElementById('nome').value;
+  const marcados = document.querySelectorAll('input[type=checkbox]:checked');
+  if(!nome) { alert('Digite o nome'); return; }
+  if(marcados.length === epis.length) {
+    document.getElementById('msg').innerHTML = `✅ ${nome} liberado para o turno!`;
+  } else {
+    document.getElementById('msg').innerHTML = `⚠️ Faltam ${epis.length - marcados.length} EPIs. Não liberado.`;
+  }
+}
+</script>
+</body>
+</html>
